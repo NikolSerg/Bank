@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bank__v1", "..\..\..\OneDrive\Рабочий стол\C#\Lessons\Bank__v1\Bank__v1.csproj", "{2CB4EEA1-0401-46DB-A120-8550C7AE8F77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bank", "Practice 11\Bank.csproj", "{46B9F6DA-621D-4269-969B-6E8E8B76A1EE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankEmpManager", "..\..\..\OneDrive\Рабочий стол\C#\Lessons\BankEmpManager\BankEmpManager.csproj", "{04242CC2-0CBE-458C-8D5D-90A4F9AE5A35}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bank__v1", "Bank__v1\Bank__v1.csproj", "{2CB4EEA1-0401-46DB-A120-8550C7AE8F77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bank", "..\..\..\OneDrive\Рабочий стол\C#\Lessons\Practice 11\Bank.csproj", "{46B9F6DA-621D-4269-969B-6E8E8B76A1EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankEmpManager", "BankEmpManager\BankEmpManager.csproj", "{1B158DB0-7C72-4BA9-AE73-E8EF5A5EA79F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2CB4EEA1-0401-46DB-A120-8550C7AE8F77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2CB4EEA1-0401-46DB-A120-8550C7AE8F77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CB4EEA1-0401-46DB-A120-8550C7AE8F77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2CB4EEA1-0401-46DB-A120-8550C7AE8F77}.Release|Any CPU.Build.0 = Release|Any CPU
-		{04242CC2-0CBE-458C-8D5D-90A4F9AE5A35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{04242CC2-0CBE-458C-8D5D-90A4F9AE5A35}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{04242CC2-0CBE-458C-8D5D-90A4F9AE5A35}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{04242CC2-0CBE-458C-8D5D-90A4F9AE5A35}.Release|Any CPU.Build.0 = Release|Any CPU
 		{46B9F6DA-621D-4269-969B-6E8E8B76A1EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{46B9F6DA-621D-4269-969B-6E8E8B76A1EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46B9F6DA-621D-4269-969B-6E8E8B76A1EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46B9F6DA-621D-4269-969B-6E8E8B76A1EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CB4EEA1-0401-46DB-A120-8550C7AE8F77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CB4EEA1-0401-46DB-A120-8550C7AE8F77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CB4EEA1-0401-46DB-A120-8550C7AE8F77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CB4EEA1-0401-46DB-A120-8550C7AE8F77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B158DB0-7C72-4BA9-AE73-E8EF5A5EA79F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B158DB0-7C72-4BA9-AE73-E8EF5A5EA79F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B158DB0-7C72-4BA9-AE73-E8EF5A5EA79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B158DB0-7C72-4BA9-AE73-E8EF5A5EA79F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

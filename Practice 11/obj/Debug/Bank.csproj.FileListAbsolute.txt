@@ -1,0 +1,23 @@
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\bin\Debug\Practice 11.exe.config
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\bin\Debug\Practice 11.exe
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\bin\Debug\Practice 11.pdb
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\bin\Debug\Newtonsoft.Json.dll
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\bin\Debug\Newtonsoft.Json.xml
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\Bank.csproj.AssemblyReference.cache
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\Bank.csproj.SuggestedBindingRedirects.cache
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\AddPerson.g.cs
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\DataBase.g.cs
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\MainWindow.g.cs
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\App.g.cs
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\Practice 11_MarkupCompile.cache
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\Practice 11_MarkupCompile.lref
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\AddPerson.baml
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\DataBase.baml
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\MainWindow.baml
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\Practice 11.g.resources
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\Practice_11.Properties.Resources.resources
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\Bank.csproj.GenerateResource.cache
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\Bank.csproj.CoreCompileInputs.cache
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\Bank.csproj.CopyComplete
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\Practice 11.exe
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Lessons\Practice 11\obj\Debug\Practice 11.pdb

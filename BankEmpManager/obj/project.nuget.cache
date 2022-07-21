@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "InPpoH+ejf6QVKQHk3kMslPUYTpaPMv0bdddm117CXI0aWy5QKal8yW8pbeXJb5aSCNbL+1F6c0WKTil/bCPWQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sseer\\OneDrive\\Рабочий стол\\C#\\Bank\\BankEmpManager\\BankEmpManager.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sseer\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
