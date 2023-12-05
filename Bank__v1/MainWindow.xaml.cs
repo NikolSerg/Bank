@@ -3,19 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Bank__v1
 {
@@ -99,21 +90,26 @@ namespace Bank__v1
 
         private bool Verify(string login, string password)
         {
-            string jUsers = null;
+
             bool verified = false;
             try
             {
-                jUsers = Decode(File.ReadAllText("empdata.encrypt"));
 
-                List<User> users = JsonConvert.DeserializeObject<List<User>>(jUsers);
-
-                foreach (User user in users)
+                string jUsers = Decode(File.ReadAllText("empdata.encrypt")) ?? null;
+                if (jUsers != null)
                 {
-                    if (login == user.PhoneNumber && password == user.Password)
+
+                    List<User> users = JsonConvert.DeserializeObject<List<User>>(jUsers) ?? null;
+
+
+                    foreach (User user in users)
                     {
-                        DataBase data = new DataBase(user);
-                        verified = true;
-                        this.Close();
+                        if (login == user.PhoneNumber && password == user.Password)
+                        {
+                            DataBase data = new DataBase(user);
+                            verified = true;
+                            this.Close();
+                        }
                     }
                 }
                 return verified;
@@ -128,27 +124,34 @@ namespace Bank__v1
 
         private string Decode(string code)
         {
-            string separator = Convert.ToByte('z').ToString();
-            string[] parsedCode = code.Split(new string[] { "2z57" }, StringSplitOptions.RemoveEmptyEntries);
-            code = parsedCode[0];
-            int lenght = Convert.ToInt32(parsedCode[1]);
             string result = null;
-            for (int i = 0; i < lenght; i++)
+            try
             {
-                separator += i.ToString() + Convert.ToByte('|').ToString();
-                string lastSeparator;
-                if (i != 0)
+                string separator = Convert.ToByte('z').ToString();
+                string[] parsedCode = code.Split(new string[] { "2z57" }, StringSplitOptions.RemoveEmptyEntries);
+                code = parsedCode[0];
+                int lenght = Convert.ToInt32(parsedCode[1]);
+                for (int i = 0; i < lenght; i++)
                 {
-                    lastSeparator = Convert.ToByte('z').ToString() + (i - 1).ToString() + Convert.ToByte('|').ToString();
-                    parsedCode = code.Split(new string[] { lastSeparator, separator }, StringSplitOptions.None);
-                    result += Convert.ToChar(Convert.ToByte(parsedCode[1]));
+                    separator += i.ToString() + Convert.ToByte('|').ToString();
+                    string lastSeparator;
+                    if (i != 0)
+                    {
+                        lastSeparator = Convert.ToByte('z').ToString() + (i - 1).ToString() + Convert.ToByte('|').ToString();
+                        parsedCode = code.Split(new string[] { lastSeparator, separator }, StringSplitOptions.None);
+                        result += Convert.ToChar(Convert.ToByte(parsedCode[1]));
+                    }
+                    else
+                    {
+                        parsedCode = code.Split(new string[] { separator }, StringSplitOptions.None);
+                        result += Convert.ToChar(Convert.ToByte(parsedCode[0]));
+                    }
+                    separator = Convert.ToByte('z').ToString();
                 }
-                else
-                {
-                    parsedCode = code.Split(new string[] { separator }, StringSplitOptions.None);
-                    result += Convert.ToChar(Convert.ToByte(parsedCode[0]));
-                }
-                separator = Convert.ToByte('z').ToString();
+            }
+            catch
+            {
+                MessageBox.Show("Нет пользователей!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return result;
         }

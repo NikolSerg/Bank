@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bank__v1
 {
-    internal class Person
+
+
+    public class Person
     {
         public static ObservableCollection<Person> Clients;
+        public static Dictionary<ulong, NotDepAccount> PersonsAccNumbersBase;
         static Person()
         {
             Clients = new ObservableCollection<Person>();
+            PersonsAccNumbersBase = new Dictionary<ulong, NotDepAccount>();
         }
 
         public string FirstName { get; set; }
@@ -23,6 +25,7 @@ namespace Bank__v1
 
         public Dictionary<DateTime, string> Changes = new Dictionary<DateTime, string>();
 
+        public NotDepAccount[] Accounts;
 
 
         public Person(string firstName, string lastName, string patronymic, string phoneNumber, string passport)
@@ -32,7 +35,35 @@ namespace Bank__v1
             Patronymic = patronymic;
             PhoneNumber = phoneNumber;
             Passport = passport;
+            Accounts = new NotDepAccount[2];
             Clients.Add(this);
+        }
+
+        public bool AddAccount(NotDepAccount acc)
+        {
+            bool exist = false;
+            foreach (Account account in Accounts)
+            {
+                if (account is null) continue;
+                else if (account.GetType() == acc.GetType())
+                {
+                    exist = true;
+                    break;
+                }
+            }
+            if (!exist)
+            {
+                if (acc is DepAccount) Accounts[1] = acc;
+                else Accounts[0] = acc;
+                if (PersonsAccNumbersBase.Count > 0)
+                {
+                    ulong max = Person.PersonsAccNumbersBase.Keys.Max() + 1;
+                    acc.AccNumber = max;
+                }
+                else acc.AccNumber = 1;
+                Person.PersonsAccNumbersBase.Add(acc.AccNumber, acc);
+            }
+            return exist;
         }
         public Person()
         {
@@ -54,7 +85,7 @@ namespace Bank__v1
                     for (int k = 0; k < 10; k++)
                         temp += random.Next(10).ToString();
                 }
-                else if (i==4)
+                else if (i == 4)
                 {
                     for (int k = 0; k <= 10; k++)
                     {
@@ -64,10 +95,10 @@ namespace Bank__v1
                             temp += random.Next(10) + " ";
                     }
                 }
-                
+
                 switch (i)
                 {
-                    case 0: 
+                    case 0:
                         FirstName = temp;
                         temp = null;
                         break;
@@ -89,6 +120,7 @@ namespace Bank__v1
                         break;
                 }
             }
+            Accounts = new NotDepAccount[2];
             Clients.Add(this);
         }
     }

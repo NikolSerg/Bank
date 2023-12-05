@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bank__v1"
         mc:Ignorable="d"
-        Title="DataBase" Height="450" Width="800" WindowStartupLocation="CenterScreen" MinWidth="660">
+        Title="DataBase" Height="450" Width="830" WindowStartupLocation="CenterScreen" MinWidth="660">
     <Grid>
-        <DataGrid x:Name="ClientsDataGrid" AutoGenerateColumns="False" HorizontalAlignment="Center" Margin="0,0,0,76">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="27*"/>
+            <ColumnDefinition Width="773*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="ClientsDataGrid" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="0,0,0,76" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=LastName}" Width="1*"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Path=FirstName}" Width="1*"/>
@@ -27,9 +31,10 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="addButton" Content="Добавить клиента в базу" HorizontalAlignment="Left" Margin="10,0,0,10" Height="55" VerticalAlignment="Bottom" Width="181" IsEnabled="False" Click="addButton_Click"/>
-        <Button x:Name="removeButton" Content="Удалить клиента из базы" HorizontalAlignment="Left" Margin="219,0,0,10" Height="55" VerticalAlignment="Bottom" Width="181" IsEnabled="False" Click="removeButton_Click"/>
-        <Button x:Name="showHistoryButton" Content="Посмотреть историю изменений" HorizontalAlignment="Left" Margin="428,0,0,10" Width="190" IsEnabled="False" Click="showHistoryButton_Click" Height="55" VerticalAlignment="Bottom"/>
+        <Button x:Name="addButton" Content="Добавить клиента в базу" HorizontalAlignment="Left" Margin="10,0,0,10" Height="55" VerticalAlignment="Bottom" Width="181" IsEnabled="False" Click="addButton_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="removeButton" Content="Удалить клиента из базы" HorizontalAlignment="Left" Margin="192,0,0,10" Height="55" VerticalAlignment="Bottom" Width="181" IsEnabled="False" Click="removeButton_Click" Grid.Column="1"/>
+        <Button x:Name="showHistoryButton" Content="Посмотреть историю изменений" HorizontalAlignment="Left" Margin="401,0,0,10" Width="190" IsEnabled="False" Click="showHistoryButton_Click" Height="55" VerticalAlignment="Bottom" Grid.Column="1"/>
+        <Button x:Name="openAccButton" Content="Информация о счетах" HorizontalAlignment="Left" Margin="619,0,0,10" Width="144" IsEnabled="False" Click="openAccButton_Click" Height="55" VerticalAlignment="Bottom" Grid.Column="1"/>
 
     </Grid>
 </Window>

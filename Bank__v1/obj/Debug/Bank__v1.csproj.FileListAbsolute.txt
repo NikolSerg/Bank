@@ -44,3 +44,5 @@ C:\Users\sseer\OneDrive\Рабочий стол\C#\Bank\Bank__v1\obj\Debug\Bank_
 C:\Users\sseer\OneDrive\Рабочий стол\C#\Bank\Bank__v1\obj\Debug\Bank__v1.csproj.CopyComplete
 C:\Users\sseer\OneDrive\Рабочий стол\C#\Bank\Bank__v1\obj\Debug\Bank__v1.exe
 C:\Users\sseer\OneDrive\Рабочий стол\C#\Bank\Bank__v1\obj\Debug\Bank__v1.pdb
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Bank\Bank__v1\obj\Debug\BankAccountsList.g.cs
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Bank\Bank__v1\obj\Debug\BankAccountsList.baml

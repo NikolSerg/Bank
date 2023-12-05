@@ -4,17 +4,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Bank__v1
 {
@@ -23,11 +16,24 @@ namespace Bank__v1
     /// </summary>
     public partial class DataBase : Window
     {
+        string basePath = "baseEncrypted.encrypt";
         public DataBase(User user)
         {
-            if (!File.Exists("base.json")) File.Create("base.json").Close();
-            string jsonData = File.ReadAllText("base.json");
+            if (!File.Exists(basePath)) File.Create(basePath).Close();
+            string jsonData = DBDecryptor.GetDataBase(basePath);
             Person.Clients = JsonConvert.DeserializeObject<ObservableCollection<Person>>(jsonData) ?? new ObservableCollection<Person>();
+            for (int i = 0; i < Person.Clients.Count; i++)
+            {
+                foreach (NotDepAccount acc in Person.Clients[i].Accounts)
+                {
+                    if (acc != null)
+                    Person.PersonsAccNumbersBase.Add(acc.AccNumber, acc);
+                }
+            }
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromDays(1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
             //for (int i = 0; i < 50; i++)
             //{
             //    Person p = new Person();
@@ -47,7 +53,29 @@ namespace Bank__v1
             ClientsDataGrid.CellEditEnding += ClientsDataGrid_CellEditEnding;
             ClientsDataGrid.BeginningEdit += ClientsDataGrid_BeginningEdit;
             ClientsDataGrid.GotFocus += ClientsDataGrid_GotFocus;
-            
+
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            foreach (Account acc in Person.PersonsAccNumbersBase.Values)
+            {
+                switch (acc.AccType)
+                {
+                    case "Депозитный":
+                        if ((DateTime.Now - acc.OpenDate).Days % 30 == 0 && acc.IsActive)
+                        {
+                            acc.AccAmount *= 1.0042;
+                        }
+                        break;
+                    case "Недепозитный":
+                        if ((DateTime.Now - acc.OpenDate).Days % 365 == 0 && acc.IsActive)
+                        {
+                            acc.AccAmount *= 1.01;
+                        }
+                        break;
+                }
+            }
         }
 
         private void ClientsDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
@@ -63,13 +91,12 @@ namespace Bank__v1
 
         private void ClientsDataGrid_GotFocus(object sender, RoutedEventArgs e)
         {
+            if ((ClientsDataGrid.CurrentCell.Item as Person).Changes.Count > 0)
+                showHistoryButton.IsEnabled = true;
+            else showHistoryButton.IsEnabled = false;
             if (user is Manager)
-            {
                 removeButton.IsEnabled = true;
-                if ((ClientsDataGrid.CurrentCell.Item as Person).Changes.Count > 0)
-                    showHistoryButton.IsEnabled = true;
-                else showHistoryButton.IsEnabled = false;
-            }
+            openAccButton.IsEnabled = true;
             currentPerson = (Person)(ClientsDataGrid.CurrentCell.Item);
         }
         Person currentPerson;
@@ -97,7 +124,7 @@ namespace Bank__v1
         User userData;
 
         public void Start(User user)
-        
+
         {
             if (user.Post == "Consultant")
                 this.user = new Consultant(this);
@@ -108,17 +135,46 @@ namespace Bank__v1
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             string jsonData = JsonConvert.SerializeObject(Person.Clients);
-            File.WriteAllText("base.json", jsonData);
+            DBDecryptor.SaveDataBase(jsonData, basePath);
         }
 
         private void showHistoryButton_Click(object sender, RoutedEventArgs e)
         {
             string changes = "";
+            Window HistoryWindow = new Window();
+            HistoryWindow.Width = 400;
+            HistoryWindow.Height = 400;
+            HistoryWindow.Topmost = true;
+            HistoryWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            HistoryWindow.Title = "История изменений";
+            Canvas canvas = new Canvas();
+            HistoryWindow.Content = canvas;
             foreach (DateTime time in currentPerson.Changes.Keys)
             {
-                changes += $"{time} {currentPerson.Changes[time]}\n\n";
+                if (user is Manager)
+                {
+                    changes += $"{time} {currentPerson.Changes[time]}\n\n";
+                }
+                else
+                {
+                    if (!currentPerson.Changes[time].Contains("Серия, номер паспорта"))
+                        changes += $"{time} {currentPerson.Changes[time]}\n\n";
+                    else changes += $"{time} Изменены серия, номер паспорта\n\n";
+                }
             }
-            MessageBox.Show(changes);
+            canvas.Children.Add(new TextBox());
+            (canvas.Children[0] as TextBox).Text = changes;
+            (canvas.Children[0] as TextBox).Height = HistoryWindow.Height;
+            (canvas.Children[0] as TextBox).Width = HistoryWindow.Width;
+            (canvas.Children[0] as TextBox).IsReadOnly = true;
+            HistoryWindow.ShowDialog();
+
+        }
+
+        private void openAccButton_Click(object sender, RoutedEventArgs e)
+        {
+            BankAccountsList window = new BankAccountsList(currentPerson);
+            window.ShowDialog();
         }
     }
 }

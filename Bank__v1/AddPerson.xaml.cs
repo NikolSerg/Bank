@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bank__v1
 {
@@ -47,7 +39,7 @@ namespace Bank__v1
 
         private void ValidCheck()
         {
-            if (passportBox.Text.Length == 10 && 
+            if (passportBox.Text.Length == 10 &&
                 phoneBox.Text.Length == 12 &&
                 firstNameBox.Text.Length > 0 &&
                 lastNameBox.Text.Length > 0 &&
@@ -61,7 +53,7 @@ namespace Bank__v1
                         MessageBox.Show("Пользователь с этими пасспортными данными уже зарегистрирован!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                         passportBox.Background = invalidBrush;
                         exist = true;
-                            
+
                         break;
                     }
                 }
@@ -73,7 +65,7 @@ namespace Bank__v1
         {
             string text = passportBox.Text;
             string editedText = null;
-            for(int i = 0; i < text.Length; i++)
+            for (int i = 0; i < text.Length; i++)
             {
                 editedText += text[i];
                 if (i == 3)
@@ -112,8 +104,8 @@ namespace Bank__v1
         }
 
         private void addingWindow_KeyDown(object sender, KeyEventArgs e)
-        
-        
+
+
         {
             if (e.Key == Key.Enter)
             {
