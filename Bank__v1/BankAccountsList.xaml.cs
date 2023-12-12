@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -19,7 +20,8 @@ namespace Bank__v1
     /// </summary>
     public partial class BankAccountsList : Window
     {
-        public BankAccountsList(Person person)
+
+        public BankAccountsList(Person person, User user)
         {
             InitializeComponent();
             this.ResizeMode = ResizeMode.NoResize;
@@ -28,8 +30,16 @@ namespace Bank__v1
             Bind();
             topUpButton.IsEnabled = false;
             transferButton.IsEnabled = false;
+            closeAccButton.IsEnabled = false;
+            this.user = user;
+
+
+            
         }
+
+
         TextBlock block = new TextBlock();
+        User user;
         private void Bind()
         {
             if (currentPerson.Accounts.All(p => p is null))
@@ -47,15 +57,27 @@ namespace Bank__v1
             }
             else if (currentPerson.Accounts.Any(p => p is null))
             {
-                if (grid.Children.Contains(block))
-                {
-                    grid.Children.Remove(block);
-                    grid.Children.Add(accsList);
-                }
+
                 foreach (var account in currentPerson.Accounts)
                 {
-                    if (account != null)
+                    if (account != null && account.IsActive)
+                    {
+                        if (grid.Children.Contains(block))
+                        {
+                            grid.Children.Remove(block);
+                            grid.Children.Add(accsList);
+                        }
                         accsList.ItemsSource = new Account[] { account };
+                        break;
+                    }
+                    else
+                    {
+                        if (grid.Children.Contains(accsList))
+                        {
+                            grid.Children.Remove(accsList);
+                            grid.Children.Add(block);
+                        }
+                    }
                 }
             }
             else
@@ -70,8 +92,24 @@ namespace Bank__v1
                     grid.Children.Remove(accsList);
                     grid.Children.Add(accsList);
                 }
-                
+                if (currentPerson.Accounts.All(p => p.IsActive))
                 accsList.ItemsSource = new Account[] { currentPerson.Accounts[0], currentPerson.Accounts[1] };
+                else if (currentPerson.Accounts.Any(p => p.IsActive))
+                {
+                    foreach (var account in currentPerson.Accounts)
+                    {
+                        if (account != null && account.IsActive)
+                            accsList.ItemsSource = new Account[] { account };
+                    }
+                }
+                else
+                {
+                    if (grid.Children.Contains(accsList))
+                    {
+                        grid.Children.Remove(accsList);
+                        grid.Children.Add(block);
+                    }
+                }
             }
         }
 
@@ -125,7 +163,7 @@ namespace Bank__v1
 
         private void OpenNotDepAccBtn_Click(object sender, RoutedEventArgs e, Window window)
         {
-            if(currentPerson.AddAccount(AccountManager<NotDepAccount>.OpenAcc()))
+            if(currentPerson.AddAccount(AccountManager<NotDepAccount>.OpenAcc(), user))
                 MessageBox.Show("Счёт этого типа уже открыт", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             window.Close();
             Bind();
@@ -133,7 +171,7 @@ namespace Bank__v1
 
         private void Btn_Click(object sender, RoutedEventArgs e, Window window)
         {
-            if (currentPerson.AddAccount(AccountManager<DepAccount>.OpenAcc()))
+            if (currentPerson.AddAccount(AccountManager<DepAccount>.OpenAcc(), user))
                 MessageBox.Show("Счёт этого типа уже открыт", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             window.Close();
             Bind();
@@ -229,7 +267,8 @@ namespace Bank__v1
         {
             if (ValidateAccNumber(accNumber) && Validate(amount, currentAccount.Get().AccAmount))
             {
-                destAccount.Get().Transfer(currentAccount.Get(), Convert.ToDouble(amount));
+                destAccount.Get().Transfer(currentAccount.Get(), Convert.ToDouble(amount), user);
+                
                 MessageBox.Show("Средства успешно переведены", "Перевод", MessageBoxButton.OK);
             }
             else if (!ValidateAccNumber(accNumber))
@@ -270,7 +309,7 @@ namespace Bank__v1
         {
             if (Validate(amount))
             {
-                currentAccount.TopUp(Convert.ToDouble(amount));
+                currentAccount.TopUp(Convert.ToDouble(amount), user);
                 MessageBox.Show("Счёт успешно пополнен", "Пополнение", MessageBoxButton.OK);
                 window.Close();
                 Bind();
@@ -318,6 +357,17 @@ namespace Bank__v1
             currentAccount = Person.PersonsAccNumbersBase[accNumber];
             topUpButton.IsEnabled = true;
             transferButton.IsEnabled = true;
+            closeAccButton.IsEnabled = true;
+        }
+
+        private void closeAccButton_Click(object sender, RoutedEventArgs e)
+        {
+            currentAccount.Get().CloseAccount(user);
+            closeAccButton.IsEnabled = false;
+            transferButton.IsEnabled = false;
+            topUpButton.IsEnabled = false;
+            currentAccount = null;
+            Bind();
         }
     }
 }

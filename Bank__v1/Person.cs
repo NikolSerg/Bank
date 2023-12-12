@@ -9,8 +9,12 @@ namespace Bank__v1
 
     public class Person
     {
+        public static event Action<Person, User, DateTime, string> OnChange;
+
         public static ObservableCollection<Person> Clients;
         public static Dictionary<ulong, NotDepAccount> PersonsAccNumbersBase;
+
+        static ulong LastAddedAccount;
         static Person()
         {
             Clients = new ObservableCollection<Person>();
@@ -27,6 +31,8 @@ namespace Bank__v1
 
         public NotDepAccount[] Accounts;
 
+       
+
 
         public Person(string firstName, string lastName, string patronymic, string phoneNumber, string passport)
         {
@@ -39,13 +45,13 @@ namespace Bank__v1
             Clients.Add(this);
         }
 
-        public bool AddAccount(NotDepAccount acc)
+        public bool AddAccount(NotDepAccount acc, User user)
         {
             bool exist = false;
             foreach (Account account in Accounts)
             {
                 if (account is null) continue;
-                else if (account.GetType() == acc.GetType())
+                else if (account.AccType == acc.AccType)
                 {
                     exist = true;
                     break;
@@ -53,18 +59,65 @@ namespace Bank__v1
             }
             if (!exist)
             {
-                if (acc is DepAccount) Accounts[1] = acc;
-                else Accounts[0] = acc;
+                if (acc is DepAccount)
+                {
+                    Accounts[1] = acc;
+                }
+                else
+                {
+                    Accounts[0] = acc;
+                }
+
                 if (PersonsAccNumbersBase.Count > 0)
                 {
-                    ulong max = Person.PersonsAccNumbersBase.Keys.Max() + 1;
-                    acc.AccNumber = max;
+                    //ulong max = Person.PersonsAccNumbersBase.Keys.Max() + 1;
+                    //acc.AccNumber = max;
+                    if (Person.PersonsAccNumbersBase.Keys.Max() > LastAddedAccount) LastAddedAccount = Person.PersonsAccNumbersBase.Keys.Max();
+                    acc.AccNumber = LastAddedAccount + 1;
+                    LastAddedAccount++;
                 }
-                else acc.AccNumber = 1;
-                Person.PersonsAccNumbersBase.Add(acc.AccNumber, acc);
+                else
+                {
+                    acc.AccNumber = 1;
+                    LastAddedAccount = 1;
+                }
+
+                    Person.PersonsAccNumbersBase.Add(acc.AccNumber, acc);
+                acc.OnTransfer += Account_OnTransfer;
+                acc.OnTopUp += Acc_OnTopUp;
+                acc.OnClosing += Acc_OnClosing;
+                OnChange?.Invoke(this, user, DateTime.Now, $"Открыл {acc.AccType} счёт (№ счета: {acc.AccNumber})");
             }
             return exist;
         }
+
+        private void Acc_OnClosing(User user, ulong accNumber)
+        {
+            OnChange?.Invoke(this, user, DateTime.Now, $"Закрыл счёт № {accNumber}");
+        }
+
+        private void Acc_OnTopUp(User user, double amount, ulong accNumber)
+        {
+            OnChange?.Invoke(this, user, DateTime.Now, $"Пополнил счет №{accNumber} на сумму {amount} \"единиц\"");
+        }
+
+        public void OnLoad(Account account)
+        {
+            account.OnTransfer += Account_OnTransfer;
+            account.OnTopUp += Acc_OnTopUp;
+            account.OnClosing += Acc_OnClosing;
+        }
+
+        private void Account_OnTransfer(User user, double amount, ulong from, ulong to)
+        {
+            OnChange?.Invoke(this, user, DateTime.Now, $"Перевел со счета №{from} на счет №{to} {amount} \"единиц\"");
+        }
+
+        public void Change(User user, string changes)
+        {
+            OnChange.Invoke(this, user, DateTime.Now, changes);
+        }
+
         public Person()
         {
             Random random = new Random();

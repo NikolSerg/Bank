@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bank__v1"
         mc:Ignorable="d"
-        Title="Аккаунты" Height="398" Width="600">
+        Title="Аккаунты" Height="398" Width="741">
     <Grid x:Name="grid">
-        <ListBox  x:Name="accsList" Margin="0,0,0,61">
+        <Grid.ColumnDefinitions>
+
+        </Grid.ColumnDefinitions>
+        <ListBox  x:Name="accsList" Margin="0,0,0,61" Grid.ColumnSpan="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel MouseLeftButtonDown="StackPanel_MouseLeftButtonDown" Width="600">
@@ -27,8 +30,9 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button x:Name="openAccButton" Content="Открыть счёт" Margin="0,0,10,10" FontSize="16" Height="37" VerticalAlignment="Bottom" Click="openAccButton_Click" HorizontalAlignment="Right" Width="145"/>
-        <Button x:Name="topUpButton" Content="Пополнить счёт" Margin="0,0,172,10" FontSize="16" Height="37" VerticalAlignment="Bottom" Click="topUpButton_Click" HorizontalAlignment="Right" Width="145"/>
-        <Button x:Name="transferButton" Content="Перевести на другой счёт" Margin="0,0,334,10" FontSize="16" HorizontalAlignment="Right" Width="208" Height="37" VerticalAlignment="Bottom" Click="topUpButton_Click"/>
+        <Button x:Name="openAccButton" Content="Открыть счёт" Margin="0,0,10,10" FontSize="16" Height="37" VerticalAlignment="Bottom" Click="openAccButton_Click" HorizontalAlignment="Right" Width="145" Grid.Column="1"/>
+        <Button x:Name="topUpButton" Content="Пополнить счёт" Margin="0,0,172,10" FontSize="16" Height="37" VerticalAlignment="Bottom" Click="topUpButton_Click" HorizontalAlignment="Right" Width="145" Grid.Column="1"/>
+        <Button x:Name="transferButton" Content="Перевести на другой счёт" Margin="0,0,334,10" FontSize="16" HorizontalAlignment="Right" Width="208" Height="37" VerticalAlignment="Bottom" Click="topUpButton_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="closeAccButton" Content="Закрыть счёт" Margin="26,0,0,10" FontSize="16" Height="37" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="145" Click="closeAccButton_Click"/>
     </Grid>
 </Window>

@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 namespace Bank__v1
 {
-    internal class Manager : Consultant, IConsultantMethodsInterface
+    public class Manager : Consultant, IConsultantMethodsInterface
     {
         DataBase window;
         public Manager(DataBase window) : base(window)
@@ -23,19 +23,16 @@ namespace Bank__v1
                     switch (e.Column.Header.ToString())
                     {
                         case "Фамилия":
-                            DateTime dateTime = DateTime.Now;
-                            string changes = $"Изменил: {u.PhoneNumber}, {u.Post}\nФамилия: {p.LastName} => {(e.EditingElement as TextBox).Text}";
-                            p.Changes.Add(dateTime, changes);
+                            string changes = $"Изменил: Фамилия: {p.LastName} => {(e.EditingElement as TextBox).Text}";
+                            p.Change(u, changes);
                             break;
                         case "Имя":
-                            DateTime dateTime1 = DateTime.Now;
-                            string changes1 = $"Изменил: {u.PhoneNumber}, {u.Post}\nИмя: {p.FirstName} => {(e.EditingElement as TextBox).Text}";
-                            p.Changes.Add(dateTime1, changes1);
+                            string changes1 = $"Изменил: Имя: {p.FirstName} => {(e.EditingElement as TextBox).Text}";
+                            p.Change(u, changes1);
                             break;
                         case "Отчество":
-                            DateTime dateTime2 = DateTime.Now;
-                            string changes2 = $"Изменил: {u.PhoneNumber}, {u.Post}\nОтчество: {p.Patronymic} => {(e.EditingElement as TextBox).Text}";
-                            p.Changes.Add(dateTime2, changes2);
+                            string changes2 = $"Изменил: Отчество: {p.Patronymic} => {(e.EditingElement as TextBox).Text}";
+                            p.Change(u, changes2);
                             break;
                     }
                 }
@@ -44,18 +41,16 @@ namespace Bank__v1
             {
                 if (PhoneValidate(e, p))
                 {
-                    DateTime dateTime = DateTime.Now;
-                    string changes = $"Изменил: {u.PhoneNumber}, {u.Post}\nНомер телефона: {p.PhoneNumber} => {(e.EditingElement as TextBox).Text}";
-                    p.Changes.Add(dateTime, changes);
+                    string changes = $"Изменил: Номер телефона: {p.PhoneNumber} => {(e.EditingElement as TextBox).Text}";
+                    p.Change(u, changes);
                 }
             }
             else if (e.Column.Header.ToString() == "Серия, номер паспорта")
             {
                 if (PassportValidate(e, p))
                 {
-                    DateTime dateTime = DateTime.Now;
-                    string changes = $"Изменил: {u.PhoneNumber}, {u.Post}\nСерия, номер паспорта: {p.Passport} => {(e.EditingElement as TextBox).Text}";
-                    p.Changes.Add(dateTime, changes);
+                    string changes = $"Изменил: Серия, номер паспорта: {p.Passport} => {(e.EditingElement as TextBox).Text}";
+                    p.Change(u, changes);
                 }
             }
         }

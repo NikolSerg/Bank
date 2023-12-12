@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Bank__v1
@@ -17,6 +19,7 @@ namespace Bank__v1
     public partial class DataBase : Window
     {
         string basePath = "baseEncrypted.encrypt";
+        Popup popup;
         public DataBase(User user)
         {
             if (!File.Exists(basePath)) File.Create(basePath).Close();
@@ -27,9 +30,18 @@ namespace Bank__v1
                 foreach (NotDepAccount acc in Person.Clients[i].Accounts)
                 {
                     if (acc != null)
-                    Person.PersonsAccNumbersBase.Add(acc.AccNumber, acc);
+                    {
+                        
+                        Person.PersonsAccNumbersBase.Add(acc.AccNumber, acc);
+                        Person.Clients[i].OnLoad(acc);
+                    }
                 }
+                
             }
+
+
+
+            Person.OnChange += Person_OnChange;
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromDays(1);
             timer.Tick += Timer_Tick;
@@ -45,6 +57,22 @@ namespace Bank__v1
             ClientsDataGrid.CanUserDeleteRows = false;
             ClientsDataGrid.ItemsSource = Person.Clients;
 
+            popup = new Popup();
+            TextBlock textBlock = new TextBlock();
+            textBlock.Background = Brushes.Yellow;
+            textBlock.TextWrapping = TextWrapping.Wrap;
+            textBlock.Opacity = 0.8;
+            popup.Child = textBlock;
+            popup.StaysOpen = false;
+            popup.Placement = PlacementMode.Relative;
+            popup.MaxHeight = 200;
+            popup.Width = 400;
+            popup.HorizontalOffset = 400;
+            popup.VerticalOffset = -30;
+            popup.AllowsTransparency = true;
+            grid.Children.Add(popup);
+
+
             this.Closing += Window_Closing;
             this.Show();
             Start(user);
@@ -54,6 +82,13 @@ namespace Bank__v1
             ClientsDataGrid.BeginningEdit += ClientsDataGrid_BeginningEdit;
             ClientsDataGrid.GotFocus += ClientsDataGrid_GotFocus;
 
+        }
+
+        private void Person_OnChange(Person client, User user, DateTime time, string changes)
+        {
+            client.Changes.Add(time, $"{user.PhoneNumber}, {user.Post}\n {changes}");
+            (popup.Child as TextBlock).Text = $"{time}, {user.PhoneNumber}, {user.Post}\n {changes}";
+            popup.IsOpen = true;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -164,16 +199,18 @@ namespace Bank__v1
             }
             canvas.Children.Add(new TextBox());
             (canvas.Children[0] as TextBox).Text = changes;
-            (canvas.Children[0] as TextBox).Height = HistoryWindow.Height;
+            (canvas.Children[0] as TextBox).Height = HistoryWindow.Height - 20;
             (canvas.Children[0] as TextBox).Width = HistoryWindow.Width;
             (canvas.Children[0] as TextBox).IsReadOnly = true;
+            (canvas.Children[0] as TextBox).VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
             HistoryWindow.ShowDialog();
 
         }
 
         private void openAccButton_Click(object sender, RoutedEventArgs e)
         {
-            BankAccountsList window = new BankAccountsList(currentPerson);
+            BankAccountsList window = new BankAccountsList(currentPerson, userData);
+            
             window.ShowDialog();
         }
     }

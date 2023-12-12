@@ -6,7 +6,7 @@ using System.Windows.Data;
 
 namespace Bank__v1
 {
-    internal class Consultant : IConsultantMethodsInterface
+    public class Consultant : IConsultantMethodsInterface
     {
         DataBase window;
         public Consultant(DataBase window)
@@ -33,9 +33,8 @@ namespace Bank__v1
                 }
                 else
                 {
-                    DateTime dateTime = DateTime.Now;
-                    string changes = $"Изменил: {u.PhoneNumber}, {u.Post}\nНомер телефона: {p.PhoneNumber} => {(e.EditingElement as TextBox).Text}";
-                    p.Changes.Add(dateTime, changes);
+                    string changes = $"Изменил: Номер телефона: {p.PhoneNumber} => {(e.EditingElement as TextBox).Text}";
+                    p.Change(u, changes);  
                 }
             }
         }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Bank__v1"
         mc:Ignorable="d"
         Title="DataBase" Height="450" Width="830" WindowStartupLocation="CenterScreen" MinWidth="660">
-    <Grid>
+    <Grid x:Name="grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="27*"/>
             <ColumnDefinition Width="773*"/>
