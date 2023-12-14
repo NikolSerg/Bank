@@ -10,6 +10,16 @@
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
+      },
+      "EmplyeeLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/EmplyeeLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EmplyeeLib.dll": {}
+        }
       }
     }
   },
@@ -40,10 +50,16 @@
         "newtonsoft.json.nuspec",
         "packageIcon.png"
       ]
+    },
+    "EmplyeeLib/1.0.0": {
+      "type": "project",
+      "path": "../EmplyeeLib/EmplyeeLib.csproj",
+      "msbuildProject": "../EmplyeeLib/EmplyeeLib.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "EmplyeeLib >= 1.0.0",
       "Newtonsoft.Json >= 13.0.1"
     ]
   },
@@ -78,7 +94,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\sseer\\OneDrive\\Рабочий стол\\C#\\Bank\\EmplyeeLib\\EmplyeeLib.csproj": {
+              "projectPath": "C:\\Users\\sseer\\OneDrive\\Рабочий стол\\C#\\Bank\\EmplyeeLib\\EmplyeeLib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

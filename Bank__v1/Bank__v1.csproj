@@ -76,34 +76,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Account.cs" />
-    <Compile Include="AddPerson.xaml.cs">
-      <DependentUpon>AddPerson.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BankAccountsList.xaml.cs">
-      <DependentUpon>BankAccountsList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Consultant.cs" />
-    <Compile Include="DataBase.xaml.cs">
-      <DependentUpon>DataBase.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DBDecryptor.cs" />
-    <Compile Include="IConsultantMethodsInterface.cs" />
-    <Compile Include="Manager.cs" />
-    <Compile Include="Person.cs" />
-    <Compile Include="User.cs" />
-    <Page Include="AddPerson.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="BankAccountsList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DataBase.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -140,9 +112,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\privateKey.txt" />
-    <None Include="Resources\SimmIV.key" />
-    <None Include="Resources\SimmKey.key" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -158,6 +127,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataBaseLogicLib\DataBaseLib.csproj">
+      <Project>{3f8d51dc-92ce-4402-bea4-87217bb6be54}</Project>
+      <Name>DataBaseLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

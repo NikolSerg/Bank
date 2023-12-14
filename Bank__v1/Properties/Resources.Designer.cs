@@ -59,34 +59,5 @@ namespace Bank__v1.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на &lt;RSAKeyValue&gt;&lt;Modulus&gt;qv9nytBm5+OrHzCv1l9rodwQ4/JC4nTwBVfhxWS749TLuTk3UNCNxpKTEwhFCKX/w4KJtfBc5ztvQMANdkqMgVABqPBTu8h4C1AaeyJJzdrAo4hYACeN+M4nhgdkZhSVQ/gr6scOR8rqO2SlxThEoWtr1y954sxmE5GCS3Q8FVgRSbOvOtDEGezwWe56CpsWMfYopnynjfkiYdpYhFAzhmu8DSI39qxILBnWNubSiKdcE1GFv1tPu8tJdyTtA4IHYQ8TIwIOCdZPnD10T/gBYhKuXFQqop3sxmxQ87PxiHjaQtvQpDRJPm0pcPN1Au4fwXhHfPYiTLnmP+bmQlnywQ==&lt;/Modulus&gt;&lt;Exponent&gt;AQAB&lt;/Exponent&gt;&lt;P&gt;x9Dc7xgbmFHn2HwaA7Ul/Ypsk+6g+BC/dEDEJVY2mw9E+B493Bs4wmVavwHpdNhYyJB8peggtcAebHUy2dL8qFzOHNZWSMVXDkmbFhStSoCb [остаток строки не уместился]&quot;;.
-        /// </summary>
-        internal static string privateKey {
-            get {
-                return ResourceManager.GetString("privateKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
-        internal static byte[] SimmIV {
-            get {
-                object obj = ResourceManager.GetObject("SimmIV", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
-        internal static byte[] SimmKey {
-            get {
-                object obj = ResourceManager.GetObject("SimmKey", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

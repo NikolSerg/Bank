@@ -15,6 +15,7 @@ namespace Bank__v1
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             string users = null;
@@ -22,11 +23,22 @@ namespace Bank__v1
             if (!File.Exists("empdata.encrypt"))
                 try
                 {
+                    if (!File.Exists("../../../BankEmpManager/bin/Debug/net6.0/empdata.encrypt"))
+                        throw new WrongPathException("Неверный путь или файла не существует!\nХотите создать новый файл " +
+                                                            $"в директории \"{System.IO.Path.GetFullPath("Bank_v1.exe")}\"?");
+
                     File.Copy("../../../BankEmpManager/bin/Debug/net6.0/empdata.encrypt", "empdata.encrypt");
+
                 }
-                catch
+                catch (WrongPathException ex)
                 {
+                    if (MessageBox.Show(ex.Message, "Предупреждение", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
                     File.Create("empdata.encrypt").Close();
+                    else throw new Exception("Не удалось открыть файл \"empdata.encrypt\"");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             try
             {
@@ -116,7 +128,7 @@ namespace Bank__v1
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
                 Application.Current.Shutdown();
                 return verified;
             }
@@ -174,4 +186,10 @@ namespace Bank__v1
             }
         }
     }
+
+    public class WrongPathException : Exception
+    {
+        public WrongPathException(string message) : base(message) { }
+    }
+
 }

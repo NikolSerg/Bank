@@ -1,0 +1,8 @@
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Bank\CryptoLib\bin\Debug\CryptoLib.dll
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Bank\CryptoLib\bin\Debug\CryptoLib.pdb
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Bank\CryptoLib\obj\Debug\CryptoLib.csproj.AssemblyReference.cache
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Bank\CryptoLib\obj\Debug\CryptoLib.Properties.Resources.resources
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Bank\CryptoLib\obj\Debug\CryptoLib.csproj.GenerateResource.cache
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Bank\CryptoLib\obj\Debug\CryptoLib.csproj.CoreCompileInputs.cache
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Bank\CryptoLib\obj\Debug\CryptoLib.dll
+C:\Users\sseer\OneDrive\Рабочий стол\C#\Bank\CryptoLib\obj\Debug\CryptoLib.pdb
